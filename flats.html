@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div>
+    <h1>Flats</h1>
+</div>
+<div>
+    <form onsubmit="submitFlat(event)">
+        <input type="text" placeholder="city" name="city">
+        <input type="text" placeholder="Street Name "  name="street-name">
+        <input type="text" placeholder="Street Number"  name="street-number">
+        <input type="text" placeholder="Has AC"  name="has-ac">
+        <input type="number" placeholder="Area Size"  name="area-size">
+        <input type="number" placeholder="Price"  name="price">
+        <input type="date" placeholder="Date available"  name="date-available">
+        <input type="number" placeholder="Year built"  name="year-built">
+        <input type="submit" value="Create Flat">
+    </form>
+
+</div>
+<div>
+    
+    <form onsubmit="filterTable(event)">
+        <h2>Filters</h2>
+        <input type="text" name="city" placeholder="city">
+        
+        <div style="display: flex">
+            <input type="number" name="min-price" placeholder="Min Price"> - 
+            <input type="number" name="max-price" placeholder="Max Price">
+        </div>
+        <input type="submit" value="Search">
+    </form>
+    <table style="border: solid" id="flats-table">
+        <thead>
+        <tr>
+            <th>City</th>
+            <th>Street Name</th>
+            <th>Street Number</th>
+            <th>Has AC</th>
+            <th>Area Size</th>
+            <th>Price</th>
+            <th>Date Available</th>
+            <th>Year Built</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="assets/js/flats.js"></script>
+</body>
+</html>
