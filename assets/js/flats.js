@@ -1,3 +1,5 @@
+let current_table = [];
+
 const submitFlat =  (event) => {
     event.preventDefault();
     const form = event.target;
@@ -6,8 +8,8 @@ const submitFlat =  (event) => {
         streetName: form.elements['street-name'].value,
         streetNumber: form.elements['street-number'].value,
         hasAc: form.elements['has-ac'].value,
-        areaSize: form.elements['area-size'].value,
-        price: form.elements['price'].value,
+        areaSize: parseFloat(form.elements['area-size'].value),
+        price: parseFloat(form.elements['price'].value),
         dateAvailable: form.elements['date-available'].value,
         yearBuilt: form.elements['year-built'].value,
         
@@ -30,6 +32,8 @@ const fillTable = (flats = null) =>{
         flats = JSON.parse(localStorage.getItem('flats'));
     }
     
+    current_table = flats;
+    
     if (flats!= null && Array.isArray(flats)) {
         flats.forEach((flat)=>{
             const tr = document.createElement('tr');
@@ -42,7 +46,6 @@ const fillTable = (flats = null) =>{
                 '<td>' + flat.price + '</td>' +
                 '<td>' + flat.dateAvailable + '</td>' +
                 '<td>' + flat.yearBuilt + '</td>';
-            
             // const tdCity = document.createElement('td');
             // tdCity.innerText= flat.city;
             // tr.appendChild(tdCity);
@@ -78,7 +81,7 @@ const filterTable = (event) => {
     event.preventDefault();
     const form = event.target;
     const city = form.elements['city'].value;
-    const minPrince = form.elements['min-price'].value;
+    let minPrince = form.elements['min-price'].value;
     const maxPrice = form.elements['max-price'].value;
     
     
@@ -89,26 +92,59 @@ const filterTable = (event) => {
     if (flats!= null && Array.isArray(flats)) {
         
         const flatsFiltered = flats.filter((flat)=>{
-            console.log(flat)
-            if (city && city === flat.city){
-                console.log('entra a city')
-                return true;
-            }
-            if(minPrince && maxPrice){
-                console.log('entra a min max',parseFloat(minPrince),parseFloat(maxPrice),parseFloat(flat.price ))
-                if (parseFloat(minPrince) <=  parseFloat(flat.price )&& parseFloat(maxPrice) >= parseFloat(flat.price)){
-                    console.log('comprueba a min max')
-                    return true;
+            if (city){
+                if ( city !== flat.city){
+                    return false;
                 }
             }
             
-            return false;
+            if (!minPrince){
+                minPrince = 0;
+            }
+            
+            if(maxPrice){
+                
+                if (parseFloat(minPrince) > parseFloat(flat.price ) || 
+                    parseFloat(maxPrice) < parseFloat(flat.price)){
+                    
+                    return false;
+                }
+            }else{
+               if (parseFloat(minPrince) > parseFloat(flat.price )) {
+                    return false;
+               }
+            }
+            
+            return true;
         })
+        
         fillTable(flatsFiltered)
     }
     
     
 }
+
+
+const orderTable =(column)=>{
+    
+    if (current_table && Array.isArray(current_table)){
+        
+        const tableSorted = current_table.sort((a,b)=>{
+            if (a[column] > b[column]){
+                return 1;
+            }
+            if (a[column] < b[column]){
+                return -1;
+            }
+            return 0;
+
+        });
+
+        fillTable(tableSorted);
+    }
+    
+    
+} 
 
 document.addEventListener('DOMContentLoaded', () => {
     fillTable();

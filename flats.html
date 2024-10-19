@@ -7,8 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 </head>
 <body>
+<div>Hi, <span id="name-user"></span></div>
 <div>
     <h1>Flats</h1>
 </div>
@@ -38,6 +41,9 @@
         </div>
         <input type="submit" value="Search">
     </form>
+    
+    <button onclick="orderTable('city')">Order Ciudad</button>
+    <button onclick="orderTable('price')">Order Precio</button>
     <table style="border: solid" id="flats-table">
         <thead>
         <tr>
@@ -56,7 +62,7 @@
     </table>
 </div>
 
-
+<script src="assets/js/general.js"></script>
 <script src="assets/js/flats.js"></script>
 </body>
 </html>
