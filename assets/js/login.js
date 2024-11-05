@@ -15,6 +15,7 @@ const loginForm =(e)=>{
         if (result !== undefined) {
             alert('Bienvenido')
             localStorage.setItem('user_logged',JSON.stringify(result))
+            localStorage.setItem('logged_time',JSON.stringify(new Date()))
             window.location.href = 'home.html'
             
         }else{
