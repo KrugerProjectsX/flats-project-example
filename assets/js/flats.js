@@ -94,9 +94,11 @@ const fillTable = (flats = null) =>{
 
 const checkFlatFavorite = (id) => {
     const flats_favorites = JSON.parse(localStorage.getItem('flats_favorites'));
+    const user_logged = JSON.parse(localStorage.getItem('user_logged'));
     if (flats_favorites != null) {
+        
         const exist = flats_favorites.findIndex((item)=>{
-            return item.idFlat === id
+            return item.idFlat === id && item.emailUser === user_logged.email
         })
         if (exist !== -1){
             return true;
@@ -196,7 +198,7 @@ const toggleFavorite = (id,e) => {
         localStorage.setItem('flats_favorites', JSON.stringify(flats_favorites));
     }else{
         const exist =  flats_favorites.findIndex((item)=>{
-            return item.idFlat === id
+            return item.idFlat === id && item.emailUser === email
         })
         if (exist === -1){
             flats_favorites.push(favorite);
